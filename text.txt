@@ -1,0 +1,342 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//recurive
+create or replace function fact(n integer)
+return integer
+is 
+begin
+if n=1 then
+return 1;
+else return(n*fact(n-1));
+end if;
+end;
+/
+
+declare
+n integer;
+begin
+n:=5;
+dbms_output.put_line('the is'||fact(n));
+end;
+/
+
+//case statement
+declare
+grade char;
+begin
+grade:=&grade;
+case grade
+when 'A' then dbms_output.put_line('Exellent');
+when 'B' then dbms_output.put_line('Very Good');
+when 'C' then dbms_output.put_line('Well Done');
+when 'D' then dbms_output.put_line('You Passed');
+when 'F' then dbms_output.put_line('better try again');
+else dbms_output.put_line('No Such Grade');
+end case;
+end;
+/
+
+
+//uncontraint loop
+declare
+a number:=20;
+b number:=1;
+res number;
+begin
+loop
+res:=a*b;
+dbms_output.put_line(res);
+b:=b+1;
+exit when b>10;
+end loop;
+end;
+/
+
+declare
+a number:=1001;
+b number:=1010;
+begin
+loop
+dbms_output.put_line(a);
+a:=a+1;
+exit when a>b;
+end loop;
+end;
+/
+
+//sequence statement
+create sequence tomato
+start with 101
+increment by 1
+maxvalue 500
+minvalue 101
+cache 20
+nocycle;
+
+
+create table goal(eid number(10),ename varchar2(10),edept varchar2(10));
+insert into goal values(tomato.nextVal,'&ename','&edept')
+
+//////////
+
+create sequence banana
+start with 10
+increment by 1
+maxvalue 20
+minvalue 10
+cache 20;
+nocycle;
+
+select banana.nextVal from dual;
+select banana.currVal from dual;
+drop sequence banana;
+
+//procedure
+create or replace procedure greetings
+as
+begin
+dbms_output.put_line('hi hello');
+end;
+/
+
+create or replace procedure Sum_no(n IN  number, m IN number, k OUT number)
+AS
+begin
+k:=n+m;
+end;
+/
+
+create or replace procedure
+insert_into_stud(sid in number,sname in varchar2,class in varchar2,course in varchar2,b_date in date)
+IS
+Begin
+insert into stud values(sid,sname,class,course,b_date);
+End;
+/
+
+//if else
+declare
+n number;
+begin
+n:=&n;
+if(n<50)then
+dbms_output.put_line('Number is less than 50');
+end if;
+dbms_output.put_line('The value of n is' ||n);
+end;
+/
+
+//Goto and null
+//prime number
+declare
+p varchar2(30);
+n pls_integer:=37;
+begin
+for j in 2..round(sqrt(n)) loop
+if n mod j=0 then
+p:=' is not a prime number';
+GoTo print_now;
+end if;
+end loop;
+ p:=' is a prime number';
+<<print_now>>
+dbms_output.put_line(to_char(n)||p);
+end;
+/
+
+declare
+done boolean;
+begin
+for i in 1..50 loop
+if done then
+GoTo end_loop;
+end if;
+<<end_loop>>
+null;
+end loop;
+end;
+ /
+
+//while loop
+
+declare
+n number;
+i number;
+rev number:=0;
+r number;
+begin
+n:=&n;
+while n>0
+loop
+r:=mod(n,10);
+rev:=(rev*10)+r;
+n:=trunc(n/10);
+end loop;
+dbms_output.put_line('Reverse is '||rev);
+end;
+/
+
+
+declare
+f1 number(3);
+f2 number(3);
+f3 number(3);
+numnumber(3);
+begin
+f1:=0;
+f2:=1;
+f3:=0;
+num:=1;
+while num<=10
+loop
+dbms_output.put_line(f3);
+f1 :=f2;
+f2:=f3;
+f3:=f1+f2;
+num:=num+1;
+end loop;
+end;
+/
+
+//for loop
+DECLARE
+counter NUMBER;
+k NUMBER;
+BEGIN
+FOR n IN 1..50 LOOP
+counter := 0;
+k := floor(n/2);
+FOR i IN 2..k LOOP
+IF (mod(n, i) = 0 ) THEN
+counter := 1;
+END IF;
+END LOOP;
+IF (counter = 0) THEN
+DBMS_OUTPUT.PUT_LINE(n||' is prime number');
+END IF;
+END LOOP;
+END;
+/
+
+
+
+
+declare
+g varchar2(20);
+r varchar2(20);
+i number(4);
+begin
+g:='&g';
+for i in reverse 1.. length(g) loop
+r:=r || substr(g,i,1);
+end loop;
+dbms_output.put_line('reverse string is ' || r);
+if r=g then
+dbms_output.put_line('String is Palindrome');
+else
+dbms_output.put_line('String is not Palindrome');
+end if;
+end;
+/
+
+
+
+
